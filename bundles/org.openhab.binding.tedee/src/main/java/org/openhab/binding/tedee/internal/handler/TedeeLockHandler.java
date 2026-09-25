@@ -104,20 +104,31 @@ public class TedeeLockHandler extends BaseThingHandler {
     private void send(TedeeClient client, String action) {
         scheduler.execute(() -> {
             try {
-                logger.debug("Sending Tedee action '{}' to lock {}", action, cfg.deviceId);
+                String effectiveAction = action;
 
-                switch (action) {
+                if ("UNLOCK".equals(action)) {
+                    TedeeLock lock = client.getLock(cfg.deviceId);
+
+                    if (lock.state == 2) {
+                        logger.debug("Tedee lock {} is already open, replacing requested UNLOCK with PULL",
+                                cfg.deviceId);
+                    }
+                }
+
+                logger.debug("Sending Tedee action '{}' to lock {}", effectiveAction, cfg.deviceId);
+
+                switch (effectiveAction) {
                     case "LOCK" -> client.lock(cfg.deviceId);
                     case "UNLOCK" -> client.unlock(cfg.deviceId);
                     case "UNLOCK_NO_PULL" -> client.unlockWithoutPull(cfg.deviceId);
                     case "PULL" -> client.pull(cfg.deviceId);
                     default -> {
-                        logger.warn("Unsupported Tedee action '{}'", action);
+                        logger.warn("Unsupported Tedee action '{}'", effectiveAction);
                         return;
                     }
                 }
 
-                logger.debug("Tedee action '{}' accepted for lock {}", action, cfg.deviceId);
+                logger.debug("Tedee action '{}' accepted for lock {}", effectiveAction, cfg.deviceId);
 
                 scheduler.schedule(this::refresh, 1, TimeUnit.SECONDS);
                 scheduler.schedule(this::refresh, 3, TimeUnit.SECONDS);

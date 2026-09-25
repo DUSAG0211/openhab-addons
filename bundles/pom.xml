@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -411,6 +413,7 @@
     <module>org.openhab.binding.tankerkoenig</module>
     <module>org.openhab.binding.tapocontrol</module>
     <module>org.openhab.binding.tasmotaplug</module>
+    <module>org.openhab.binding.tedee</module>
     <module>org.openhab.binding.telegram</module>
     <module>org.openhab.binding.teleinfo</module>
     <module>org.openhab.binding.tellstick</module>
